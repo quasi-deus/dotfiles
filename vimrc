@@ -42,5 +42,3 @@ nnoremap <leader>t :term<CR>
 nnoremap <leader>/ :nohl<CR>
 nnoremap <leader>l :Lex<CR>
 nnoremap <C-S> :w<CR>
-
-
