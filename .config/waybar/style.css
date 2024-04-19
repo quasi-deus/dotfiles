@@ -1,72 +1,123 @@
+@import "mocha.css";
+
 * {
-	font-size: 16px;
-	font-family: monospace;
+  min-height: 0;
+  font-family: "Hack Nerd Font", FontAwesome, Roboto, Helvetica, Arial, sans-serif;
+  font-size: 13px;
 }
 
 window#waybar {
-	background: #292b2e;
-	color: #fdf6e3;
+  color: @text;
+  background: @base;
+  transition-property: background-color;
+  transition-duration: 0.5s;
+  border-radius: 90px;
 }
 
-#workspaces,
-#clock,
-#pulseaudio,
-#network,
-#memory,
-#cpu,
-#battery,
-#backlight,
-#disk,
-#tray {
-	background: #1a1a1a;
+window#waybar.empty {
+  opacity: 0.3;
 }
-#workspaces button.urgent {
-	color: #bb1231; 
+
+.modules-left {
+  border: none;
+  padding: 5px 5px;
 }
-#workspaces button:hover {
-	background: #268bd2;
-	color: #000000;
-	border: none;
+
+.modules-right {
+  border: none;
+  padding: 5px 5px;
 }
+
+.modules-center {
+  border: none;
+  padding: 5px 5px;
+}
+
+button {
+  border: none;
+  border-radius: 0;
+}
+
+button:hover {
+  background: @base;
+  border-radius: 90px;
+}
+
+
+#workspaces {
+  font-weight: 600;
+  margin-right: 10px;
+  padding: 5px 10px;
+  border-radius: 90px;
+  background: @crust
+}
+
+
 #workspaces button {
-	padding: 0 2px;
-	color: #fdf6e3;
+  color: @sapphire;
+  font-weight: 600;
+  margin: 0px;
+  padding: 0px 5px;
 }
+
+#workspaces button.urgent {
+  color: @scarlet;
+}
+#workspaces button.empty {
+  color: @surface2;
+}
+
+#workspaces button.active {
+  color: @blue;
+}
+
 #workspaces button.focused {
-	color: #268bd2;
+  background: @sapphire;
+  font-weight: 600;
+  margin-right: 5px;
+  padding: 6px 15px;
+  border-radius: 90px;
+  color: @crust;
 }
 
-#pulseaudio {
-	color: #268bd2;
-}
-#memory {
-	color: #2aa198;
-}
-#cpu.good {
-	color: #ccffcc;
-}
-#cpu.critical { 
-	color: #bb1231; 
-}
-#battery {
-	color: #859900;
-}
-#battery.critical{color: #bb1231;}
-#disk {
-	color: #cc00dd;
-}
-
-#network {
-	color: #00b300;
-}
-#cpu.
+#cpu,
+#temperature,
+#memory,
+#disk,
 #clock,
 #pulseaudio,
-#memory,
-#network,
-#cpu,
 #battery,
-#backlight,
-#disk {
-	padding: 0 10px;
+#network,
+#backlight {
+  color: @sapphire;
+  font-weight: 600;
+  margin-right: 5px;
+  padding: 6px 15px;
+  border-radius: 90px;
+  background: @crust;
 }
+
+
+#tray {
+  color: @text;
+  font-weight: 600;
+  padding: 6px 15px;
+  border-radius: 90px;
+  background: @crust
+}
+
+
+#pulseaudio#input.muted,
+#pulseaudio.muted,
+#battery.critical,
+#cpu.critical{
+  background: @sapphire;
+  color: @crust;
+}
+#battery.warning,
+#cpu.warning{
+  background: @scarlet;
+  color: @crust;
+}
+#network.disconnected {
+  background-color: @red;
