@@ -3,7 +3,26 @@
 # Copy this to ~/.config/sway/config and edit it to your liking.
 #
 # Read `man 5 sway` for a complete reference.
-font pango:DejaVu Sans Mono, Icons 8
+set $cyan #00FFFF
+set $scarlet #CC2400
+set $crimson #DC143C
+set $teal #94e2d5
+set $eblue #7df9ff
+set $lightseagreen #20B2AA
+set $mintgreen #83c092
+set $active $mintgreen
+
+set $laptop eDP-1
+bindswitch --reload --locked lid:on output $laptop disable
+bindswitch --reload --locked lid:off output $laptop enable
+
+gaps top 8
+gaps inner 8
+gaps right 8
+gaps left 8
+default_border pixel 2
+# class                 border  bground text    indicator child_border
+client.focused          $active $active #000000     $active $active
 ### Variables
 #
 # Logo key. Use Mod1 for Alt.
@@ -13,21 +32,23 @@ set $left h
 set $down j
 set $up k
 set $right l
+set $screenshot grim ~/Pictures/Screenshots/Screenshot-$(date +"%Y-%m-%d-%H-%M-%S").png
 # Your preferred terminal emulator
 set $term kitty
 # Your preferred application launcher
-set $menu  "rofi -combi-modi drun -show combi"
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $screenshot grim ~/Pictures/Screenshots/Screenshot-$(date +"%Y-%m-%d-%H-%M-%S").png
-set $WOBSOCK $XDG_RUNTIME_DIR/wob.sock
-exec rm -f $WOBSOCK && mkfifo $WOBSOCK && tail -f $WOBSOCK | wob
-exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
+set $menu 'rofi -combi-modi window,drun,ssh -show combi'
 
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg ~/Pictures/Wallpapers/Wall9.jpg fill
+bindsym --locked XF86MonBrightnessUp exec light -A 5 && light -G | cut -d'.' -f1 > $WOBSOCK
+bindsym --locked XF86MonBrightnessDown exec light -U 5 && light -G | cut -d'.' -f1 > $WOBSOCK
+bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5% && pactl get-sink-volume @DEFAULT_SINK@ | head -n 1| awk '{print substr($5, 1, length($5)-1)}' > $WOBSOCK
+bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5% && pactl get-sink-volume @DEFAULT_SINK@ | head -n 1 | awk '{print substr($5, 1, length($5)-1)}' > $WOBSOCK
+bindsym --locked XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym --locked XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
 #
 # Example configuration:
 #
@@ -41,7 +62,7 @@ output * bg ~/Pictures/Wallpapers/Wall9.jpg fill
 #
 # exec swayidle -w \
 #          timeout 300 'swaylock -f -c 000000' \
-#          timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+#          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
 #          before-sleep 'swaylock -f -c 000000'
 #
 # This will lock your screen after 300 seconds of inactivity, then turn off
@@ -63,24 +84,18 @@ output * bg ~/Pictures/Wallpapers/Wall9.jpg fill
 # Read `man 5 sway-input` for more information about this section.
 
 ### Key bindings
-
-bindsym --locked XF86MonBrightnessUp exec light -A 5 && light -G | cut -d'.' -f1 > $WOBSOCK
-bindsym --locked XF86MonBrightnessDown exec light -U 5 && light -G | cut -d'.' -f1 > $WOBSOCK
-bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5% && pactl get-sink-volume @DEFAULT_SINK@ | head -n 1| awk '{print substr($5, 1, length($5)-1)}' > $WOBSOCK
-bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5% && pactl get-sink-volume @DEFAULT_SINK@ | head -n 1 | awk '{print substr($5, 1, length($5)-1)}' > $WOBSOCK
-bindsym --locked XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
-bindsym --locked XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
-
+#
 # Basics:
 #
     # Start a terminal
-    bindsym $mod+t exec $term
+    bindsym $mod+T exec $term
 
-    # kILL FOCUsed window
+    # Kill focused window
     bindsym $mod+q kill
 
     # Start your launcher
-bindsym $mod+d exec $menu
+    bindsym $mod+d exec $menu
+
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
     # Despite the name, also works for non-floating windows.
@@ -92,12 +107,8 @@ bindsym $mod+d exec $menu
     bindsym $mod+Shift+r reload
 
     # Exit sway (logs you out of your Wayland session)
-	bindsym $mod+shift+e exec swaynag \
-	-t warning \
-	-m 'What do you want to do?' \
-	-b 'Logout' 'swaymsg exit'\
-	-b 'Poweroff' 'systemctl poweroff' \
-	-b 'Reboot' 'systemctl reboot'#
+    bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+#
 # Moving around:
 #
     # Move your focus around
@@ -213,28 +224,18 @@ bindsym $mod+r mode "resize"
 #
 # Status Bar:
 #
-# Read `man 5 sway-bar` for more information about this section
-bar swaybar_command waybar
-
+# Read `man 5 sway-bar` for more information about this section.
+bar {
+	swaybar_command waybar
+}
 floating_maximum_size 1200 x 1000
 for_window [app_id="pavucontrol"] floating enable
-for_window [app_id="kitty"] border none
-
-bindsym $mod+m exec "pavucontrol"
+bindsym $mod+m exec pavucontrol
 bindsym Print exec $screenshot
+include /etc/sway/config.d/*
+output "*" bg ~/Pictures/Wall4.jpg fill 
 exec swayidle -w \
 	timeout 1800 'swaylock -f' \
 	timeout 1805 'swaymsg "output * dpms off"' \
 	resume 'swaymsg "output * dpms on"'
-exec gammastep -O 3000K
-
-#class              berder  backgr. text    indicator child_border
- client.focused          #00aa66 #339966 #aaffee #2e9ef4  #285577
- client.focused_inactive #333333 #5f676a #ffffff #484e50  #5f676a
- client.unfocused        #333333 #222222 #888888 #292d2e  #222222
- client.urgent           #2f343a #900000 #ffffff #900000  #900000
- client.placeholder      #000000 #0c0c0c #ffffff #000000  #0c0c0c
-
- client.background       #ffffff
-
-include /etc/sway/config.d/*
+exec gammastep -O 4000K

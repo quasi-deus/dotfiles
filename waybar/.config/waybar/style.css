@@ -54,7 +54,7 @@ button:hover {
 
 
 #workspaces button {
-  color: @sapphire;
+  color: @mintgreen;
   font-weight: 600;
   margin: 0px;
   padding: 0px 5px;
@@ -72,7 +72,7 @@ button:hover {
 }
 
 #workspaces button.focused {
-  background: @sapphire;
+  background: @mintgreen;
   font-weight: 600;
   margin-right: 5px;
   padding: 6px 15px;
@@ -89,7 +89,7 @@ button:hover {
 #battery,
 #network,
 #backlight {
-  color: @sapphire;
+  color: @mintgreen;
   font-weight: 600;
   margin-right: 5px;
   padding: 6px 15px;
@@ -111,7 +111,7 @@ button:hover {
 #pulseaudio.muted,
 #battery.critical,
 #cpu.critical{
-  background: @sapphire;
+  background: @mintgreen;
   color: @crust;
 }
 #battery.warning,
@@ -121,3 +121,4 @@ button:hover {
 }
 #network.disconnected {
   background-color: @red;
+}

@@ -1,0 +1,25 @@
+[credential]
+    helper = cache
+[commit]
+	gpgsign = true
+[gpg]
+	format = ssh
+[url "git@github.com:"]
+	insteadOf = https://github.com/
+[includeIf "hasconfig:remote.*.url:https://github.com/invisibl-cloud/**"]
+	path = ~/.gitconfig-invisibl
+[includeIf "hasconfig:remote.*.url:https://github.com/invisibl-genai/**"]
+	path = ~/.gitconfig-invisibl
+[includeIf "hasconfig:remote.*.url:https://github.com/quasi-deus/**"]
+	path = ~/.gitconfig-oss
+[includeIf "gitdir:~/Code/opensource/"]
+	path = ~/.gitconfig-oss
+[filter "lfs"]
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+[branch]
+	autosetupmerge = true
+[push]
+	autoSetupRemote = true
