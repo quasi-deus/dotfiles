@@ -1,0 +1,8 @@
+configuration {
+    font: "Nerd Fonts";
+    line-margin: 10;
+}
+
+
+@theme "~/.config/rofi/blue.rasi"
+
