@@ -101,24 +101,6 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-function repos {
-	cd  ~/Code/invisibl/quark/repos/$1
-}
-function quark {
-	cd  ~/Code/invisibl/quark/$1
-}
-function aether {
-	cd  ~/Code/invisibl/aether/$1
-}
-function opensource {
-	cd  ~/Code/opensource/$1
-}
-function mamba {
-	source  ~/.mamba.zshrc && mamba activate
-}
-function start_private() {
- ***REMOVED***
-}
 
 ### GIT
 
@@ -180,15 +162,10 @@ alias jwtp="decode_jwt 2"
 #golang
 export GOPRIVATE=github.com/invisibl-cloud
 export PATH=$PATH:$HOME/go/bin/
-***REMOVED***
-***REMOVED***
-***REMOVED***
-***REMOVED***
 eval "$(zoxide init zsh)"
 #emacs
-***REMOVED***
+DOOMDIR=~/.config/doom
 export EDITOR=vim
-***REMOVED***
 export INFINITE="https://www.youtube.com/watch?v=jKN8jZoJcvA&list=PL4HalOHDUOu8DVl1ZRHDJRgrAqQqvaox_"
 export TAMIL="https://www.youtube.com/playlist?list=PLNH_Shi1b0GaH_Z_Jhgmp0C9qVldFru2Q"
 export ETERNITY="https://www.youtube.com/watch?v=MOx8rYaFjxQ&list=PL4HalOHDUOu8H0D2hSbErC60b0VcXVxHn&pp=gAQBiAQB"
@@ -203,5 +180,3 @@ export MAKARA="https://www.youtube.com/playlist?list=PLsOgFqR0cppA4gmF1-odqwPGox
 export CARTO="https://www.youtube.com/watch?v=bzApdhSevBY&list=PLsOgFqR0cppCMkzRHArHPzVGXETbqgSuY"
 export ORI1="https://www.youtube.com/playlist?list=PLxbIk89I7mKuYQcurk0mK-h2Fo_aR1ss7"
 export ORI2="https://www.youtube.com/playlist?list=PLS19zOYsmnkwokOUuQC0Kw0M8HAdtWVYj"
-
-source /home/quasar/.config/broot/launcher/bash/br
