@@ -42,3 +42,6 @@ nnoremap <leader>t :term<CR>
 nnoremap <leader>/ :nohl<CR>
 nnoremap <leader>l :Lex<CR>
 nnoremap <leader>bs :w<CR>
+
+"System copy
+xnoremap <silent> <leader>y :w !wl-copy<CR><CR>
