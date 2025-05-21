@@ -83,7 +83,3 @@
 
 ;; python
 (setq-hook! 'python-mode-hook +format-with '(ruff-isort ruff))
-(gptel-make-ollama "Ollama"             ;Any name of your choosing
-  :host "localhost:11434"               ;Where it's running
-  :stream t                             ;Stream responses
-  :models '(codegemma:2b))            ;List of models
