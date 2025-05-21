@@ -49,4 +49,3 @@
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;; (unpin! t)
 (package! solaire-mode :disable t)
-(package! gptel :recipe (:nonrecursive t))
