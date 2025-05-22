@@ -158,7 +158,6 @@ alias jwth="decode_jwt 1"
 
 # Decode JWT Payload
 alias jwtp="decode_jwt 2"
-***REMOVED***
 #golang
 export GOPRIVATE=github.com/invisibl-cloud
 export PATH=$PATH:$HOME/go/bin/
